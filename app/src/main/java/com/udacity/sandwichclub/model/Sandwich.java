@@ -1,5 +1,7 @@
 package com.udacity.sandwichclub.model;
 
+import org.json.JSONArray;
+
 import java.util.List;
 
 public class Sandwich {
