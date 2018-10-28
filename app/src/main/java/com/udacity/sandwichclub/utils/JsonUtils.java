@@ -49,11 +49,12 @@ public class JsonUtils {
                ingredientList.add(ingredientsArray.getString(i));
             }
             sw.setIngredients(ingredientList);
+            sw.setImage(jsonBody.getString("image"));
         }
         catch (Exception ee) {
             Log.i("A", "Fail to parse JSON: " + ee.getMessage());
         }
-        //Log.i("FROM SANDWICH", "A look at the string: " + json);
+        Log.i("FROM SANDWICH", "A look at the string: " + json);
 
 
 

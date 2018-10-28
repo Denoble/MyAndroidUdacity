@@ -12,16 +12,27 @@ import com.squareup.picasso.Picasso;
 import com.udacity.sandwichclub.model.Sandwich;
 import com.udacity.sandwichclub.utils.JsonUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_POSITION = "extra_position";
     private static final int DEFAULT_POSITION = -1;
-
+   // private ImageView mImageView;
+    private TextView mAka;
+    private TextView mIngredients;
+    private TextView mOrigin_tv;
+    private TextView mDescription;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
+        //mImageView = findViewById(R.id.image_iv);
+       mIngredients =  findViewById(R.id.ingredients_tv);
+       mAka =  findViewById(R.id.also_known_tv);
+       mOrigin_tv= findViewById(R.id.origin_tv);
+       mDescription = findViewById(R.id.description_tv);
         ImageView ingredientsIv = findViewById(R.id.image_iv);
 
         Intent intent = getIntent();
@@ -47,7 +58,7 @@ public class DetailActivity extends AppCompatActivity {
             return;
         }
 
-        populateUI();
+        populateUI(sandwich);
         Picasso.with(this)
                 .load(sandwich.getImage())
                 .into(ingredientsIv);
@@ -60,7 +71,22 @@ public class DetailActivity extends AppCompatActivity {
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
     }
 
-    private void populateUI() {
-
+    private void populateUI(Sandwich sw) {
+        List<String> ingredients =  sw.getIngredients();
+        List<String> aka =  sw.getAlsoKnownAs();
+        StringBuilder stringBuilder =  new StringBuilder();
+        StringBuilder string_builder =  new StringBuilder();
+        for(int i = 0; i < ingredients.size(); i++ ){
+            stringBuilder.append(ingredients.get(i));
+            stringBuilder.append("\n");
+        }
+        mIngredients.setText(stringBuilder.toString());
+        for(int i = 0; i < aka.size(); i++ ){
+            string_builder.append(aka.get(i));
+            string_builder.append("\n");
+        }
+        mAka.setText(string_builder.toString());
+        mOrigin_tv.setText(sw.getPlaceOfOrigin());
+        mDescription.setText(sw.getDescription());
     }
 }
